@@ -7,6 +7,7 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
+    password = Column(String)
     role= Column(String) # only parent,student
     school_id= Column(Integer)
 
@@ -61,5 +62,16 @@ class StudyPlan(Base):
     topic_id = Column(Integer)
     scheduled_time = Column(DateTime)
     status = Column(String)   # pending / completed
+
+
+class TopicContent(Base):
+    __tablename__ = "topic_content"
+
+    id = Column(Integer, primary_key=True)
+    topic_id = Column(Integer, ForeignKey('topics.id'))
+    content_type = Column(String)  # text / video / animation
+    file_path = Column(String)      # path to file: content/C/(1)intro.md or videos/(1)intro.mp4
+    order_index = Column(Integer)   # sequence order
+    duration_mins = Column(Integer)  # for video/animation
 
 
